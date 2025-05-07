@@ -1,4 +1,6 @@
 """
+Copyright © 2025 Moulay Ali "Snophix" Balouz
+
 This game is simple :
 - 
 
