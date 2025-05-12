@@ -10,6 +10,7 @@ like why do i need to use the self keyword so much, like why?
 
 
 # all the consts
+# Tout cela sont des constante
 TITLE_BASE = "More Or Less"
 TITLE_LESS = "Less!!"
 TITLE_MORE = "More!!"
@@ -38,64 +39,66 @@ NUMBER_OF_TRIES = 10
 WINDOW_SIZE = wx.Size(300, 250)
 
 
-
+# On defini la classe MainFrame qui erite de wx.Frame qui est la class qui represente la fenetre principlae
 class MainFrame(wx.Frame):
+    # fonction d'initialization de la classe, je sais pas vraiment c'est quoi c'est *args et **kw, 
+    # ca ressemble a des pointeur (genre int* p_integer;) mais y en a pas en python
     def __init__(self, *args, **kw):
         super(MainFrame, self).__init__(*args, **kw)
 
-        # used to have a parent ot evry widget
+        #on creer le panel principal qui est utiliser pour placer tout les widgets
         self.mainPanel = wx.Panel(self)
         
-        # do more setup
+        # les differentes initialization
         self.setup_controls()
         self.setup_sizers()
         self.setup_binds()
 
-        # now we setup the frame
+        # on remet la taille
         self.SetSize(WINDOW_SIZE)
 
-        # then we setup the variable
+        # ensuite en "demmarre" le jeu
         self.reset_game()
         
 
-
+    # on intialise les different widgets, ou controls je ne me rapelle plus comment wx les nomme
     def setup_controls(self) -> None:
-        # the message text ctrl
+        # on creer le grand texte de message, on indiquant que son parent est self.mainPanel
         self.messageText = wx.StaticText(self.mainPanel)
-        theFont = wx.Font().Bold()
-        theFont.SetPointSize(40)
-        self.messageText.SetFont(theFont)
+        theFont = wx.Font().Bold()# on cree un objet pour la police d'ecriture en gras
+        theFont.SetPointSize(40)# on reagle la taille
+        self.messageText.SetFont(theFont)# on met la polcide d'ecriture de self.messageText a theFont
 
-        # the subtext text widget
+        # on creer le petit texte on indiquant que son parent est self.mainPanel
         self.subtextText = wx.StaticText(self.mainPanel)
 
-        # the number picker
+        # le widget responsable pour choisir le nombre, avec le meme parent qu'on haut
         self.numberPickerSpinCtrl = wx.SpinCtrl(self.mainPanel)
-        self.numberPickerSpinCtrl.SetMax(10000)
-        self.numberPickerSpinCtrl.SetMin(1)
+        self.numberPickerSpinCtrl.SetMax(10000) # on defeni la valeur max a 10000
+        self.numberPickerSpinCtrl.SetMin(1)# on defeeni le valeur min a 1
 
-        # the button which can be for choosing/submitting or for replaying
+        # le boutton pour verfier sont proposition
         self.submitButton = wx.Button(self.mainPanel)
 
 
 
     def setup_sizers(self) -> None:
-        # the sizer which centers the widgets
+        # le sizer qui permet de dynamiquement gerer la position des widgets
         mainBoxSizer = wx.BoxSizer(wx.VERTICAL)
-        # the order in which we add each widgets matter
-        # also the wxSizerFlags() techinique is used to tell how to display the thing
+        # lordre dans laquelle ont ajoute les widgets est tres important
+        # les different wx.SizerFlags() sont des reglages
         mainBoxSizer.Add(self.messageText, wx.SizerFlags().Center())
         mainBoxSizer.Add(self.subtextText, wx.SizerFlags().Center().Border(wx.DOWN, 15))
         mainBoxSizer.Add(self.numberPickerSpinCtrl, wx.SizerFlags().Center().Border(wx.DOWN, 15))
         mainBoxSizer.Add(self.submitButton, wx.SizerFlags().Center())
 
-        # the sizer which centers the whole ui
-        mainGridSizer = wx.GridSizer(1)# 1 cell only
-        mainGridSizer.Add(mainBoxSizer, wx.SizerFlags().Expand().Border(wx.ALL, 5).CentreVertical())
+        # le sizer qui centre tout
+        mainGridSizer = wx.GridSizer(1)# juste 1 cellule
+        mainGridSizer.Add(mainBoxSizer, wx.SizerFlags().Expand().Border(wx.ALL, 5).CentreVertical()) # on ajoute l'autre sizer
 
-        # now we set the panel's sizer to mainGridSizer
+        # je suis fatigue 
         self.mainPanel.SetSizer(mainGridSizer)
-        mainGridSizer.SetSizeHints(self)
+        mainGridSizer.SetSizeHints(self) # 
         #mainBoxSizer.SetSizeHints(self)
 
 

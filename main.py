@@ -5,6 +5,8 @@ This game is simple :
 - 
 
 This program requires wxPython to be installed.
+
+Also I am remaking it in C++ with wxWidgets so look out for that :)
 """
 import wx
 import MainFrame
